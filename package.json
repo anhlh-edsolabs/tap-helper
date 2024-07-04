@@ -1,0 +1,37 @@
+{
+  "name": "tap-helper",
+  "version": "0.1.0",
+  "description": "Helper scripts for creating signed authority inscriptions for Tap Protocol",
+  "main": "index.js",
+  "author": "Le Hoang Anh",
+  "license": "MIT",
+  "private": false,
+  "type": "commonjs",
+  "scripts": {
+    "lint": "yarn prettier --check && yarn eslint",
+    "eslint": "eslint 'src/**/*.ts'",
+    "prettier": "prettier 'src/**/*.ts'",
+    "test": "echo \"No test script is defined\" && exit 1",
+    "build": "tsc --build .",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@noble/hashes": "^1.4.0",
+    "@noble/secp256k1": "^2.1.0",
+    "bitcoinjs-lib": "^6.1.6",
+    "ecpair": "^2.1.0",
+    "tiny-secp256k1": "^2.2.3",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.6.0",
+    "@types/node": "^20.14.9",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^9.6.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.2",
+    "rimraf": "^5.0.7"
+  }
+}
