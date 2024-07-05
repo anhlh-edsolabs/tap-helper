@@ -10,7 +10,7 @@ This package provides a set of helper scripts designed to facilitate the creatio
 
 ## Installation
 
-To install the necessary dependencies, run the following command:
+To install the package, run the following command:
 
 ```sh
 yarn add tap-protocol-helper
@@ -28,7 +28,14 @@ To use the Tap Helper functions, you can import the Tap and Utils modules into y
 
 ```JavaScript
 const { Tap, Utils } = require("tap-protocol-helper");
-const { ECPair } = require("./dist/src/core");
+const { ECPair } = require("tap-protocol-helper/dist/src/core");
+```
+
+Optionals:
+
+```JavaScript
+const { bitcoin, ecc } = require("tap-protocol-helper/dist/src/core");
+const { toXOnly } = require("bitcoinjs-lib/src/psbt/bip371");
 ```
 
 ### 1. Signing a `privilege-auth` inscription
