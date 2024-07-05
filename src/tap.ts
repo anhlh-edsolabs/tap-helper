@@ -1,11 +1,14 @@
 import * as Utils from "./utils";
 import {
 	KeypairBuffer,
-	VerificationResult, PrivAuthProtocol,
+	VerificationResult,
+	PrivAuthProtocol,
 	TapMintProtocol,
 	DmtMintProtocol,
 	VerificationProtocol,
-	TokenAuthProtocol
+	TokenAuthProtocol,
+	RedeemData,
+	RedeemItem,
 } from "./types";
 
 /**
@@ -21,7 +24,7 @@ export function signAuth(
 	privKey: string | Buffer,
 	pubKey: string | Buffer,
 	messageKey: string,
-	message: string,
+	message: string | Record<string, unknown>,
 	salt: number | string = Math.random(),
 ): VerificationResult {
 	const keypair: KeypairBuffer = Utils.getKeypairBuff(privKey, pubKey);
@@ -186,13 +189,13 @@ export function signTokenAuth(
  */
 export function signTokenRedeem(
 	privKey: string | Buffer,
-	pubKey: string | Buffer, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-	redeemItems: any[] = [],
+	pubKey: string | Buffer,
+	redeemItems: Array<RedeemItem> = [],
 	auth: string = "",
 	data: string = "",
 	salt: number | string = Math.random(),
 ): VerificationResult {
-	const message = {
+	const message: RedeemData = {
 		items: redeemItems,
 		auth,
 		data,
@@ -214,8 +217,8 @@ export function signTokenRedeem(
 function generateTokenAuthScript(
 	privKey: string | Buffer,
 	pubKey: string | Buffer,
-	messageKey: string,	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	message: any,
+	messageKey: string,
+	message: string[] | RedeemData,
 	salt: number | string = Math.random(),
 ): VerificationResult {
 	const keypair: KeypairBuffer = Utils.getKeypairBuff(privKey, pubKey);

@@ -18,7 +18,11 @@ interface Signature {
 	v: string;
 }
 
-declare type Operation = "privilege-auth" | "token-mint" | "dmt-mint" | "token-auth";
+declare type Operation =
+	| "privilege-auth"
+	| "token-mint"
+	| "dmt-mint"
+	| "token-auth";
 
 interface BaseProtocol {
 	p: string | "tap";
@@ -77,6 +81,17 @@ interface TokenAuthProtocol extends PrivAuthProtocol {
 	salt: string;
 }
 
+interface RedeemItem {
+	tick: string;
+	amt: string;
+	address: string;
+}
+interface RedeemData {
+	items: Array<RedeemItem>;
+	auth: string;
+	data: string;
+}
+
 export type { KeypairBuffer, VerificationResult, Signature };
 
 export type {
@@ -86,4 +101,6 @@ export type {
 	DmtMintProtocol,
 	VerificationProtocol,
 	TokenAuthProtocol,
+	RedeemItem,
+	RedeemData,
 };
