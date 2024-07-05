@@ -83,7 +83,7 @@ const amount = 1000;
 const salt = Math.random(); // Optional: Provide your own salt value
 const minter = 'tb1p96fnzkff6af94z0zpaahqws45rjcw5fd6wk3pe2w7cqz279wl6rqzw0k37'
 
-const mint_auth = signMint(keypair.privateKey, keypair.publicKey, ticker, amount, salt);
+const mint_auth = signMint(keypair.privateKey, keypair.publicKey, ticker, amount, minter, salt);
 ```
 
 **Example output:**
