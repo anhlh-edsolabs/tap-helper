@@ -21,12 +21,23 @@ export function sign(
 	privKeyBuffer: Buffer,
 	salt: string,
 ): { signature: Signature; msgHash: Buffer } {
-	const msgHash: Buffer = sha256(`${message}${salt}`);
-	const recoverableSig = ecc.signRecoverable(msgHash, privKeyBuffer);
+	if (
+		typeof message !== "string" ||
+		!Buffer.isBuffer(privKeyBuffer) ||
+		typeof salt !== "string"
+	) {
+		throw new Error("Invalid input types");
+	}
+	try {
+		const msgHash: Buffer = sha256(`${message}${salt}`);
+		const recoverableSig = ecc.signRecoverable(msgHash, privKeyBuffer);
 
-	const signature = splitSignature(recoverableSig);
+		const signature = splitSignature(recoverableSig);
 
-	return { signature, msgHash };
+		return { signature, msgHash };
+	} catch (error: unknown) {
+		throw new Error(`Failed to sign the message: ${error}`);
+	}
 }
 
 /**
@@ -129,6 +140,14 @@ export function splitSignature(
 	outputFormat: "number" | "hex" = "number",
 ): Signature {
 	const signature = sig.signature;
+
+	if (!(signature instanceof Uint8Array)) {
+		throw new Error("Invalid signature type");
+	}
+	if (signature.length !== 64) {
+		throw new Error("Invalid signature length");
+	}
+
 	const r = Buffer.from(signature.slice(0, 32));
 	const s = Buffer.from(signature.slice(32, 64));
 
@@ -156,6 +175,18 @@ export function splitSignature(
  * { RecoverableSignature: { signature: Uint8Array; recoveryId: RecoveryIdType; }}
  */
 export function joinSignature(sig: Signature): RecoverableSignature {
+	// check if sig is of type Signature, otherwise throw an error
+	if (typeof sig !== "object" || sig === null) {
+		throw new Error("Invalid signature type");
+	}
+	if (
+		typeof sig.r !== "string" ||
+		typeof sig.s !== "string" ||
+		typeof sig.v !== "string"
+	) {
+		throw new Error("Invalid signature format");
+	}
+
 	const r = SBuffer.fromBigIntStr(sig.r);
 	const s = SBuffer.fromBigIntStr(sig.s);
 
@@ -181,6 +212,10 @@ export function getKeypairBuff(
 	const pubKeyBuffer = Buffer.isBuffer(pubKey)
 		? pubKey
 		: Buffer.from(pubKey, "hex");
+
+	if (privKeyBuffer.length !== 32 || pubKeyBuffer.length !== 33) {
+		throw new Error("Invalid key length");
+	}
 
 	return { privKeyBuffer, pubKeyBuffer } as KeypairBuffer;
 }
