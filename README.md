@@ -1,12 +1,14 @@
-# Tap Protocol helper library
+# TAP Protocol helper library
 
-Helper functions for signing TAP protocol inscriptions.
+Helper functions for signing TAP Protocol inscriptions.
 
 ## Description
 
 [![npm version](https://badge.fury.io/js/tap-protocol-helper.svg)](https://badge.fury.io/js/tap-protocol-helper)
 
-This package provides a set of helper scripts designed to facilitate the creation of signed authority inscriptions for the Tap Protocol. It includes functionality for signing authentication messages, token authentication, and token redemption using various cryptographic protocols.
+This package provides a set of helper scripts designed to facilitate the creation of signed authority inscriptions for the TAP Protocol. It includes functionality for signing privilege authority messages, token authority, and token redemption using various cryptographic protocols.
+
+The library has been implemented using references from [TAP Protocol specs](https://github.com/Trac-Systems/tap-protocol-specs) and [TAP Protocol authority boiler plate](https://github.com/Trac-Systems/tap-protocol-privilege-auth-boilerplate.git)
 
 ## Installation
 
