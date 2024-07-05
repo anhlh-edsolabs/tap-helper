@@ -4,6 +4,10 @@
   "description": "Helper scripts for creating signed authority inscriptions for Tap Protocol",
   "author": "Le Hoang Anh",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anhlh-edsolabs/tap-protocol-helper.git"
+  },
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
