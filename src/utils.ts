@@ -21,13 +21,6 @@ export function sign(
 	privKeyBuffer: Buffer,
 	salt: string,
 ): { signature: Signature; msgHash: Buffer } {
-	if (
-		typeof message !== "string" ||
-		!Buffer.isBuffer(privKeyBuffer) ||
-		typeof salt !== "string"
-	) {
-		throw new Error("Invalid input types");
-	}
 	try {
 		const msgHash: Buffer = sha256(`${message}${salt}`);
 		const recoverableSig = ecc.signRecoverable(msgHash, privKeyBuffer);
@@ -53,23 +46,22 @@ export function verify(
 	hash: Buffer,
 	pubKeyBuffer: Buffer,
 	signature: Signature,
-	protocol: BaseProtocol,
-): VerificationResult {
+): { isValid: boolean; pubRecovered: string } {
 	const sig = joinSignature(signature);
 	const isValid = ecc.verify(hash, pubKeyBuffer, sig.signature);
-	const pubRecovered = Buffer.from(
-		ecc.recover(hash, sig.signature, sig.recoveryId, true) ??
-			new Uint8Array(33),
-	).toString("hex");
+	try {
+		const recoveredPubArray = ecc.recover(
+			hash,
+			sig.signature,
+			sig.recoveryId,
+			true,
+		);
+		const pubRecovered = Buffer.from(recoveredPubArray!).toString("hex");
 
-	return {
-		test: {
-			valid: isValid,
-			pub: pubKeyBuffer.toString("hex"),
-			pubRecovered,
-		},
-		result: JSON.stringify(protocol),
-	} as VerificationResult;
+		return { isValid, pubRecovered };
+	} catch (err: unknown) {
+		throw new Error(`Failed to recover the public key: ${err}`);
+	}
 }
 
 /**
@@ -112,7 +104,20 @@ export function signAndVerify(
 		? test_protocol.prv.sig
 		: test_protocol.sig;
 
-	return verify(test_msgHash, keypair.pubKeyBuffer, test_sig, protocol);
+	const { isValid, pubRecovered } = verify(
+		test_msgHash,
+		keypair.pubKeyBuffer,
+		test_sig,
+	);
+
+	return {
+		test: {
+			valid: isValid,
+			pub: keypair.pubKeyBuffer.toString("hex"),
+			pubRecovered,
+		},
+		result: JSON.stringify(protocol),
+	} as VerificationResult;
 }
 
 /**
