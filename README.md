@@ -44,7 +44,7 @@ const priv_auth = Tap.signAuth(keypair.privateKey, keypair.publicKey, msgKey, me
 
 **Example output:**
 
-```JSON
+```JavaScript
 {
     test: {
         valid: true,
@@ -88,7 +88,7 @@ const mint_auth = signMint(keypair.privateKey, keypair.publicKey, ticker, amount
 
 **Example output:**
 
-```JSON
+```JavaScript
 {
     test: {
         valid: true,
