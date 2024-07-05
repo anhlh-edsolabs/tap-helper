@@ -1,6 +1,6 @@
 {
   "name": "tap-protocol-helper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Helper scripts for creating signed authority inscriptions for Tap Protocol",
   "author": "Le Hoang Anh",
   "license": "MIT",
