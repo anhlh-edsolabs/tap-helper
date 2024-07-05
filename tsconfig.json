@@ -1,4 +1,8 @@
 {
+  /* Basic Options */
+  "include": ["src/**/*.ts"],                          /* Specify an array of 'glob' patterns that match files to be included in compilation. */
+  "exclude": ["__tests__/**/*"],                       /* Specify an array of 'glob' patterns that match files to be excluded from compilation. */
+  
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
