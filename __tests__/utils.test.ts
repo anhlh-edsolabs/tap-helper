@@ -14,7 +14,12 @@ describe("sign function", () => {
 		const { signature, msgHash } = sign(message, privKeyBuffer, salt);
 		expect(signature).toBeDefined();
 		expect(msgHash).toBeDefined();
-		// Additional checks can be added here to validate the signature and msgHash further
+
+		// check if signature is an instance of Signature
+		expect(signature.r).toBeDefined();
+		expect(signature.s).toBeDefined();
+		expect(signature.v).toBeDefined();
+		expect(msgHash instanceof Buffer).toBe(true);
 	});
 
 	it("should throw an error when signing fails", () => {
