@@ -11,6 +11,13 @@
     "dist"
   ],
   "type": "commonjs",
+  "keywords": [
+    "tap",
+    "tap protocol",
+    "inscriptions",
+    "authority",
+    "bitcoin"
+  ],
   "scripts": {
     "lint": "yarn prettier --check && yarn eslint",
     "eslint": "eslint 'src/**/*.ts'",
