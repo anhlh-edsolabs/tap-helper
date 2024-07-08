@@ -30,13 +30,13 @@ To use the Tap Helper functions, you can import the Tap and Utils modules into y
 
 ```JavaScript
 const { Tap, Utils } = require("tap-protocol-helper");
-const { ECPair } = require("tap-protocol-helper/dist/src/core");
+const { ECPair } = require("tap-protocol-helper/dist/core");
 ```
 
 Optionals:
 
 ```JavaScript
-const { bitcoin, ecc } = require("tap-protocol-helper/dist/src/core");
+const { bitcoin, ecc } = require("tap-protocol-helper/dist/core");
 const { toXOnly } = require("bitcoinjs-lib/src/psbt/bip371");
 ```
 
