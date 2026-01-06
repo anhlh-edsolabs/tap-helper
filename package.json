@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anhlh-edsolabs/tap-protocol-helper.git"
+    "url": "git+https://github.com/anhlh2311/tap-protocol-helper.git"
   },
   "private": false,
   "main": "dist/index.js",
